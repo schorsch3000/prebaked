@@ -2,7 +2,7 @@ depends_on: [base]   # built after base when both are due
 keep: 3              # must not exceed the global keep
 refresh_cmd: "apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*"
 tests:
-  - "shellcheck --version"
+  - "/usr/local/go/bin/go version"
 # flavors:           # optional: one image per flavor, tagged <name>:<flavor>
 #   gpu:
 #     args: { GPU: "1" }
