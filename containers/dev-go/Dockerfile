@@ -8,3 +8,6 @@ FROM ${PARENT}
 RUN wget https://go.dev/dl/go1.27.2.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.27.2.linux-amd64.tar.gz && \
     rm go1.27.2.linux-amd64.tar.gz
+
+
+RUN false
