@@ -16,7 +16,7 @@ RUN tar -xzf dali035.tar.gz \
     && rm dali035.tar.gz \
     && cd dali035 \
     && make \
-    && cp dali /usr/local/bin/dali \
+    && cp dali /usr/bin/dali \
     && cd .. \
     && rm -rf dali035
 
