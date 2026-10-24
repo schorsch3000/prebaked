@@ -14,7 +14,7 @@ WORKDIR /tmp
 COPY dali035.tar.gz .
 RUN tar -xzf dali035.tar.gz \
     && rm dali035.tar.gz \
-    cd dali035 \
+    && cd dali035 \
     && make \
     && cp dali /usr/local/bin \
     && cd .. \
