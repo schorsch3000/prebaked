@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -e
+export DEBIAN_FRONTEND=noninteractive
+sed -i 's/^Components:.*/Components: main contrib non-free non-free-firmware/' /etc/apt/sources.list.d/debian.sources
+# add local cache
+apt update && apt install -y curl
+curl -fsS http://barbara:3142/_setup.sh | bash -x
+
+
+
+
+apt update
+apt upgrade -y
+
+# install apt packages
+echo >> /tmp/packages.apt
+
+mapfile -t PACKAGES < <(sed -e '/^[[:space:]]*#/d' \
+	-e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d' /tmp/packages.apt)
+if ((${#PACKAGES[@]})); then
+	apt install -y "${PACKAGES[@]}"
+fi
+
+
+
+
+
+# install pipx packages
+
+echo >> /tmp/packages.pipx.az
+while read -r PACKAGE; do
+  if [[ -n "$PACKAGE" ]]; then
+     pipx install --global "$PACKAGE"
+  fi
+done < <(sed -e '/^[[:space:]]*#/d' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d' /tmp/packages.pipx)
+
+rm -rf /var/lib/apt/lists/*
+
