@@ -11,3 +11,12 @@ COPY packages.pipx /tmp/packages.pipx
 ENV DEBIAN_FRONTEND=noninteractive
 RUN /usr/local/sbin/init
 WORKDIR /tmp
+COPY dali035.tar.gz .
+RUN tar -xzf dali035.tar.gz \
+    && rm dali035.tar.gz \
+    cd dali035 \
+    && make \
+    && cp dali /usr/local/bin \
+    && cd .. \
+    && rm -rf dali035
+
