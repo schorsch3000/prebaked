@@ -38,8 +38,6 @@ shellcheck
 locales-all
 tzdata
 ed
-vice
-acme
 php-cli
 php-curl
 php-mbstring
