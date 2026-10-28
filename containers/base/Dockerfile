@@ -1,7 +1,14 @@
 FROM debian:13
-COPY init /usr/local/sbin/init
-COPY packages.apt /tmp/packages.apt
-COPY packages.pipx /tmp/packages.pipx
-ENV DEBIAN_FRONTEND=noninteractive
-RUN /usr/local/sbin/init
-WORKDIR /tmp
+ARG PREBAKE_CONTAINER
+COPY --from=ghcr.io/schorsch3000/packagedealer:1 /usr/local/bin/pd /usr/local/bin/pd
+
+WORKDIR /etc/packagedealer/
+
+COPY packages.apt ./$PREBAKE_CONTAINER.apt
+COPY packages.pipx ./$PREBAKE_CONTAINER.pipx
+
+
+RUN pd --clean --update -d /etc/packagedealer/
+
+
+
