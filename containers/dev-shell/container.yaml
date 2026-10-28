@@ -1,3 +1,4 @@
+depends_on: [base]   # built after base when both are due
 refresh_cmd: "pd --clean --upgrade -D /etc/packagedealer/"
 tests:
   - "git --version"
