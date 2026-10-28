@@ -1,6 +1,6 @@
 depends_on: [dev-node]   # built after base when both are due
 keep: 3              # must not exceed the global keep
-refresh_cmd: "apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*"
+refresh_cmd: "pd --clean --upgrade -D /etc/packagedealer/"
 tests:
   - "node -v"
 # flavors:           # optional: one image per flavor, tagged <name>:<flavor>
