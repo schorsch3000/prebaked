@@ -1,6 +1,6 @@
 FROM debian:13
 ARG PREBAKE_CONTAINER
-COPY --from=ghcr.io/schorsch3000/packagedealer:latest /usr/local/bin/pd /usr/local/bin/pd
+COPY --from=ghcr.io/schorsch3000/packagedealer:latest /usr/local/bin/pd /usr/bin/pd
 
 WORKDIR /etc/packagedealer/
 
