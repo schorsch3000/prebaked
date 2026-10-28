@@ -1,7 +1,7 @@
 FROM debian:13
 ARG PREBAKE_CONTAINER
 COPY --from=ghcr.io/schorsch3000/packagedealer:latest /usr/local/bin/pd /usr/local/bin/pd
-RUN apt update && apt install -y curl && curl -fsS http://172.17.0.1:3142/_setup.sh | sh
+RUN echo 'Acquire::http::Proxy "http://172.17.0.1:3142";' > /etc/apt/apt.conf.d/01proxy
 
 WORKDIR /etc/packagedealer/
 
