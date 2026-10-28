@@ -1,4 +1,4 @@
-refresh_cmd: "pd --clean --upgrade -d /etc/packagedealer/"
+refresh_cmd: "pd --clean --upgrade -D /etc/packagedealer/"
 tests:
   - "git --version"
   - "jq --version"
