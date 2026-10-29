@@ -3,12 +3,9 @@ ARG PREBAKE_CONTAINER
 COPY --from=ghcr.io/schorsch3000/packagedealer:latest /usr/local/bin/pd /usr/local/bin/pd
 RUN echo 'Acquire::http::Proxy "http://172.17.0.1:3142";' > /etc/apt/apt.conf.d/01proxy
 RUN  sed -i '/^Components:/ {/contrib/! s/$/ contrib/; /non-free/! s/$/ non-free/; /non-free-firmware/! s/$/ non-free-firmware/}' /etc/apt/sources.list.d/debian.sources
-RUN echo "Types: deb deb-src" >>/etc/apt/sources.list.d/trixie-backports.sources
-RUN echo "URIs: http://debian.org" >>/etc/apt/sources.list.d/trixie-backports.sources
-RUN echo "Suites: trixie-backports" >>/etc/apt/sources.list.d/trixie-backports.sources
-RUN echo "Components: main contrib non-free non-free-firmware" >>/etc/apt/sources.list.d/trixie-backports.sources
-RUN echo "Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg" >>/etc/apt/sources.list.d/trixie-backports.sources
-RUN echo "Enabled: yes" >>/etc/apt/sources.list.d/trixie-backports.sources
+
+COPY debian.list /etc/apt/sources.list.d/debian.list
+
 
 
 WORKDIR /etc/packagedealer/
