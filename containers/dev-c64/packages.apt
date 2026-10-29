@@ -38,6 +38,6 @@ shellcheck
 locales-all
 tzdata
 ed
-#vice
+vice
 acme
 xvfb
