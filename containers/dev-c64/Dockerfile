@@ -1,8 +1,7 @@
 # PARENT is set by prebake to <registry>/base:latest.
 ARG PARENT
-ARG PREBAKE_CONTAINER
 FROM ${PARENT}
-
+ARG PREBAKE_CONTAINER
 
 WORKDIR /etc/packagedealer/
 COPY packages.apt ./$PREBAKE_CONTAINER.apt
