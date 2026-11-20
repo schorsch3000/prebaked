@@ -3,5 +3,6 @@ refresh_cmd: "pd --clean --upgrade -D /etc/packagedealer/"
 tests:
   - "git --version"
   - "jq --version"
+  - "go version"
 extra_files:
   - gen-lists
