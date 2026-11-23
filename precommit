@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+set -euo pipefail
+function install_hooks() {
+  local git_dir
+  git_dir=$(git rev-parse --git-dir)
+  local hook_dir="$git_dir/hooks"
+  mkdir -p "$hook_dir"
+  for hook in pre-commit pre-push; do
+    ln -sf "../../bin/$hook" "$hook_dir/$hook"
+  done
+}
+
+
+
+function sort_lists() {
+  packagesExtentions=(apt node pipx composer cargo gem go)
+
+  find containers -mindepth 2 -maxdepth 2 -type f -name "packages.*" -type f | while read -r file; do
+    ext="${file##*.}"
+    if [[ " ${packagesExtentions[*]} " == *" $ext "* ]]; then
+      echo "Sorting $file"
+      sort -u "$file" -o "$file"
+    fi
+  done
+}
+
+function precommit_make() {
+  find containers -mindepth 2 -maxdepth 2 -type f -name "Makefile" -type f | while read -r file; do
+    local output status
+    if output=$(make -C "$(dirname "$file")" precommit 2>&1); then
+      if [[ -n "$output" ]]; then
+        printf '%s\n' "$output"
+      fi
+    else
+      status=$?
+      if [[ "$output" == *"No rule to make target 'precommit'. Stop."* &&
+            "$output" != *" Error "* ]]; then
+        continue
+      fi
+      printf '%s\n' "$output" >&2
+      return "$status"
+    fi
+  done
+}
+
+
+function main() {
+  precommit_make
+  sort_lists
+  install_hooks
+
+}
+
+command="${1:-main}"
+
+case "$command" in
+main)
+  main
+  ;;
+*)
+  echo "Unknown command: $command"
+  exit 1
+  ;;
+esac

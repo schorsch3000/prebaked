@@ -1,0 +1,4 @@
+# The agents' own files: plugins, Claude Code's scratchpad
+.az/claude
+.az/opencode
+.az/aicatraz.yaml

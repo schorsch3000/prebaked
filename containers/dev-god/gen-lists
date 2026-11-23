@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-cd "$(dirname "$0")" || exit 1
-
-rm -rf -- packages.*
-find ../ -type f -name packages.apt -exec cat "{}" + | sort | uniq | sponge packages.apt
-find ../ -type f -name packages.pipx -exec cat "{}" + | sort | uniq | sponge packages.pipx
