@@ -18,3 +18,6 @@ notify:
   pushover:
     priority_failure: 1  # -2 (silent) .. 1 (high)
     priority_recovery: -1
+
+root_files:
+  - precommit

@@ -6,3 +6,5 @@ tests:
   - "go version"
 extra_files:
   - gen-lists
+  - Makefile
+  - Makefile
